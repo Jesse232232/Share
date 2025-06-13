@@ -62,9 +62,26 @@
             font-size: 18px;
             padding: 5px;
         }
+#image-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    gap: 10px; /* Adds space between images */
+}
+
+#image-container img {
+    width: 100px; /* Adjust as needed */
+    height: auto;
+}
     </style>
 </head>
 <body id="page">
+    <div id="image-container">
+    <img src="TTE.png" alt="Image 1">
+    <img src="CNPC.png" alt="Image 2">
+</div>
+
     <div id="message">GPP RFSU</div>
     
     <div id="countdown-container">
