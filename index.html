@@ -8,11 +8,11 @@
         body {
             text-align: center;
             font-family: Arial, sans-serif;
-            background-image: url('https://c4.wallpaperflare.com/wallpaper/89/461/229/lines-rays-wavy-shadow-wallpaper-preview.jpg'); /* Fixed background */
+            background-image: url('your-image-url'); /* Default background image */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            color: white;
+            color: white; /* Default text color */
             text-shadow: 2px 2px 5px black;
             display: flex;
             flex-direction: column;
@@ -20,6 +20,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            transition: background 0.5s, color 0.5s;
         }
         #message {
             font-size: 60px;
@@ -54,10 +55,15 @@
             padding: 8px 15px;
             cursor: pointer;
         }
+        #colorInput, #bgColorInput {
+            margin-top: 10px;
+            font-size: 18px;
+            padding: 5px;
+        }
     </style>
 </head>
-<body>
-    <div id="message">GPP RFSU</div> <!-- Added text above the timer -->
+<body id="page">
+    <div id="message">GPP RFSU</div>
     
     <div id="countdown-container">
         <div class="countdown-item">
@@ -81,6 +87,12 @@
     <div id="input-container">
         <input type="date" id="dateInput">
         <button onclick="startCountdown()">Start Countdown</button>
+        <br>
+        <label for="colorInput">Choose Text Color:</label>
+        <input type="color" id="colorInput" onchange="changeColor()">
+        <br>
+        <label for="bgColorInput">Choose Background Color:</label>
+        <input type="color" id="bgColorInput" onchange="changeBackground()">
     </div>
 
     <script>
@@ -107,6 +119,20 @@
                 document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                 document.getElementById('seconds').innerText = Math.floor((diff % (1000 * 60)) / 1000);
             }, 1000);
+        }
+
+        function changeColor() {
+            const newColor = document.getElementById('colorInput').value;
+            document.getElementById('message').style.color = newColor;
+            document.querySelectorAll('.countdown-number, .countdown-label').forEach(el => {
+                el.style.color = newColor;
+            });
+        }
+
+        function changeBackground() {
+            const newBgColor = document.getElementById('bgColorInput').value;
+            document.body.style.backgroundImage = 'none'; // Remove image
+            document.body.style.backgroundColor = newBgColor; // Apply solid color
         }
     </script>
 </body>
