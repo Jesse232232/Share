@@ -8,19 +8,22 @@
         body {
             text-align: center;
             font-family: Arial, sans-serif;
-            background-image: url('https://www.magicmurals.com/media/amasty/webp/catalog/product/cache/af1e2a1566fa2dbb552605e8822354b7/a/d/adbj-36503747_jpg.webp'); /* Default background image */
+            background-image: url('https://www.magicmurals.com/media/amasty/webp/catalog/product/cache/af1e2a1566fa2dbb552605e8822354b7/a/d/adbj-36503747_jpg.webp'); /* Fixed background */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             color: white; /* Default text color */
             text-shadow: 2px 2px 5px black;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             transition: background 0.5s, color 0.5s;
+        }
+        #draggable-container {
+            position: absolute;
+            cursor: grab;
         }
         #message {
             font-size: 120px;
@@ -47,92 +50,74 @@
             font-weight: bold;
             margin-top: 10px;
         }
-        #input-container {
-            margin-top: 20px;
-        }
-        #dateInput, button {
-            font-size: 20px;
-            padding: 8px 15px;
-            cursor: pointer;
-        }
-        #colorInput, #bgColorInput {
-            margin-top: 10px;
-            font-size: 18px;
-            padding: 5px;
-        }
     </style>
 </head>
-<body id="page">
-    <div id="message">GPP RFSU</div>
-    
-    <div id="countdown-container">
-        <div class="countdown-item">
-            <div id="days" class="countdown-number">--</div>
-            <div class="countdown-label">Days</div>
+<body>
+    <div id="draggable-container">
+        <div id="message">GPP RFSU</div>
+        <div id="countdown-container">
+            <div class="countdown-item">
+                <div id="days" class="countdown-number">--</div>
+                <div class="countdown-label">Days</div>
+            </div>
+            <div class="countdown-item">
+                <div id="hours" class="countdown-number">--</div>
+                <div class="countdown-label">Hours</div>
+            </div>
+            <div class="countdown-item">
+                <div id="minutes" class="countdown-number">--</div>
+                <div class="countdown-label">Minutes</div>
+            </div>
+            <div class="countdown-item">
+                <div id="seconds" class="countdown-number">--</div>
+                <div class="countdown-label">Seconds</div>
+            </div>
         </div>
-        <div class="countdown-item">
-            <div id="hours" class="countdown-number">--</div>
-            <div class="countdown-label">Hours</div>
-        </div>
-        <div class="countdown-item">
-            <div id="minutes" class="countdown-number">--</div>
-            <div class="countdown-label">Minutes</div>
-        </div>
-        <div class="countdown-item">
-            <div id="seconds" class="countdown-number">--</div>
-            <div class="countdown-label">Seconds</div>
-        </div>
-    </div>
-    
-    <div id="input-container">
-        <input type="date" id="dateInput">
-        <button onclick="startCountdown()">Start Countdown</button>
-        <br>
-        <label for="colorInput">Choose Text Color:</label>
-        <input type="color" id="colorInput" onchange="changeColor()">
-        <br>
-        <label for="bgColorInput">Choose Background Color:</label>
-        <input type="color" id="bgColorInput" onchange="changeBackground()">
     </div>
 
     <script>
-        function startCountdown() {
-            const dateInput = document.getElementById('dateInput').value;
-            if (!dateInput) return alert("Please select a target date!");
-            const targetDate = new Date(dateInput).getTime();
+        // Dragging function for the countdown container
+        const draggableContainer = document.getElementById("draggable-container");
+        let isDragging = false, offsetX, offsetY;
 
-            // Hide input and button after clicking "Start Countdown"
-            document.getElementById('input-container').style.display = 'none';
+        draggableContainer.addEventListener("mousedown", (e) => {
+            isDragging = true;
+            offsetX = e.clientX - draggableContainer.getBoundingClientRect().left;
+            offsetY = e.clientY - draggableContainer.getBoundingClientRect().top;
+            draggableContainer.style.cursor = "grabbing";
+        });
+
+        document.addEventListener("mousemove", (e) => {
+            if (isDragging) {
+                draggableContainer.style.left = `${e.clientX - offsetX}px`;
+                draggableContainer.style.top = `${e.clientY - offsetY}px`;
+            }
+        });
+
+        document.addEventListener("mouseup", () => {
+            isDragging = false;
+            draggableContainer.style.cursor = "grab";
+        });
+
+        function startCountdown() {
+            const targetDate = new Date(document.getElementById("dateInput").value).getTime();
+            if (!targetDate) return alert("Please select a target date!");
 
             setInterval(() => {
                 const now = new Date().getTime();
                 const diff = targetDate - now;
                 if (diff <= 0) {
-                    document.getElementById('days').innerText = "0";
-                    document.getElementById('hours').innerText = "0";
-                    document.getElementById('minutes').innerText = "0";
-                    document.getElementById('seconds').innerText = "0";
+                    document.getElementById("days").innerText = "0";
+                    document.getElementById("hours").innerText = "0";
+                    document.getElementById("minutes").innerText = "0";
+                    document.getElementById("seconds").innerText = "0";
                     return;
                 }
-                document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-                document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                document.getElementById('seconds').innerText = Math.floor((diff % (1000 * 60)) / 1000);
+                document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000);
             }, 1000);
-        }
-
-        function changeColor() {
-            const newColor = document.getElementById('colorInput').value;
-            document.getElementById('message').style.color = newColor;
-            document.querySelectorAll('.countdown-number, .countdown-label').forEach(el => {
-                el.style.color = newColor;
-            });
-        }
-
-        function changeBackground() {
-            const newBgColor = document.getElementById('bgColorInput').value;
-            document.body.style.backgroundImage = 'none'; // Remove image
-            document.body.style.backgroundColor = newBgColor; // Apply solid color
         }
     </script>
 </body>
