@@ -1,114 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Countdown Timer</title>
+  <meta charset="UTF-8">
+  <title>Index</title>
   <style>
     body {
-      text-align: center;
-      font-family: Arial, sans-serif;
-      background-image: url('https://static.vecteezy.com/system/resources/previews/055/097/545/non_2x/bright-red-decorations-with-lanterns-and-flowers-in-an-interior-setting-during-festive-season-free-photo.jpeg');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      color: white;
-      text-shadow: 2px 2px 5px black;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
+      padding-top: 140px;
+      font-family: sans-serif;
+      background: #f0f0f0;
     }
-    #message {
-      font-size: 120px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-    #countdown-container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 40px;
-      text-align: center;
-    }
-    .countdown-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .countdown-number {
-      font-size: 80px;
-      font-weight: bold;
-    }
-    .countdown-label {
-      font-size: 30px;
-      font-weight: bold;
-      margin-top: 10px;
-    }
+
     #image-container {
       position: absolute;
-      top: 10px;
-      left: 10px;
+      top: 20px;
+      left: 0;
+      right: 0;
       display: flex;
-      gap: 10px;
+      justify-content: space-between;
+      padding: 0 30px;
     }
+
     #image-container img {
-      width: 100px;
+      width: 120px;
       height: auto;
+    }
+
+    #message {
+      text-align: center;
+      font-size: 46px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    #current-time-label {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    #countdown-label {
+      text-align: center;
+      font-size: 24px;
+      margin-top: 20px;
+      margin-bottom: 40px;
+    }
+
+    .clock-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .clock-container {
+      text-align: center;
+      /*background: rgba(255, 0, 0, 0.1);*/
+      width: 200px; /* 可根据表盘大小调整 */
+  		min-height: 260px; /* 保证所有容器高度一致 */
+  		display: flex;
+  		flex-direction: column;
+  		justify-content: flex-start;
+  		align-items: center; 
+    }
+
+    .city-label {
+      margin-bottom: 10px;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    .am-pm-indicator {
+      margin-left: 8px;
+      font-size: 1.2em;
+      color: #f39c12;
+    }
+
+    .am-pm-indicator.night {
+      color: #3498db;
+    }
+
+:root {
+  --clock-size: 120px;
+  --center: calc(var(--clock-size) / 2);
+  --radius: calc(var(--center) - 20px);
+}
+
+    .clock {
+      position: relative;
+  		width: var(--clock-size);
+  		height: var(--clock-size);
+      border: 8px solid #333;
+      border-radius: 50%;
+      background: white;
+      overflow: hidden;
+    }
+
+    .hand {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: bottom center;
+      background: #333;
+    }
+
+    .hour { width: 6px; height: calc(var(--clock-size) * 0.33); z-index: 3; }
+    .minute { width: 4px; height: calc(var(--clock-size) * 0.44); z-index: 2; }
+    .second { width: 2px; height: calc(var(--clock-size) * 0.55); background: red; z-index: 1; }
+
+    .center-dot {
+      position: absolute;
+      width: calc(var(--clock-size) * 0.07);
+      height: calc(var(--clock-size) * 0.07);
+      background: #333;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 4;
+    }
+
+.tick {
+  position: absolute;
+  width: 4px;
+  height: calc(var(--clock-size) * 0.07);
+  background: #333;
+  top: calc(var(--clock-size) * 0.02);
+  left: 50%;
+  transform-origin: center calc(var(--clock-size) / 2 - 4px);
+}
+
+    .number {
+      position: absolute;
+      font-size: calc(var(--clock-size) * 0.08);
+      font-weight: bold;
+      color: #333;
+      transform: translate(-50%, -50%);
     }
   </style>
 </head>
 <body>
+
   <div id="image-container">
-    <img src="TTE.png" alt="Image 1" />
-    <img src="CNPC.png" alt="Image 2" />
+    <img src="TTE.png" alt="TTE Logo" />
+    <img src="CNPC.png" alt="CNPC Logo" />
   </div>
 
-  <div id="message">GPP RFSU</div>
+  <div id="message">GPP Ar-Ratawi Gas Midstream Project</div>
+  <div id="current-time-label">Current Time: <span id="current-time"></span></div>
 
-  <div id="countdown-container">
-    <div class="countdown-item">
-      <div id="days" class="countdown-number">--</div>
-      <div class="countdown-label">Days</div>
+  <div class="clock-row">
+    <div class="clock-container">
+      <div class="city-label">Abu Dhabi <span class="am-pm-indicator"></span></div>
+      <div class="clock" id="abu"></div>
     </div>
-    <div class="countdown-item">
-      <div id="hours" class="countdown-number">--</div>
-      <div class="countdown-label">Hours</div>
+
+    <div class="clock-container">
+      <div class="city-label">Paris <span class="am-pm-indicator"></span></div>
+      <div class="clock" id="paris"></div>
     </div>
-    <div class="countdown-item">
-      <div id="minutes" class="countdown-number">--</div>
-      <div class="countdown-label">Minutes</div>
+
+    <div class="clock-container">
+      <div class="city-label">Beijing <span class="am-pm-indicator"></span></div>
+      <div class="clock" id="beijing"></div>
     </div>
-    <div class="countdown-item">
-      <div id="seconds" class="countdown-number">--</div>
-      <div class="countdown-label">Seconds</div>
+
+    <div class="clock-container">
+      <div class="city-label">Basrah <span class="am-pm-indicator"></span></div>
+      <div class="clock" id="basra"></div>
     </div>
   </div>
 
-  <script>
-    const targetDate = new Date('2028-05-12T00:00:00').getTime();
+	<div id="countdown-label">Overall Milestone Archieved in Total:3/30 </div>
+	<div id="countdown-label">Current Key Milestone: 3D Model &lt;Sep 2025&gt; </div>
+  <div id="countdown-label">Countdown for Final Project Completion:<span id="countdown"></span></div>
+  <div id="countdown-label">Quote of the week: 12 Golden Safety Rules</div>
+
+<script>
+    const zones = {
+      abu: 4,
+      paris: 2,
+      beijing: 8,
+      basra: 3
+    };
+
+    const targetTime = new Date("2028-05-12T00:00:00"); // 可自定义目标时间
+
+    function createTicks(clockId) {
+  		const clock = document.getElementById(clockId);
+  		const size = clock.offsetWidth;
+  		const center = size / 2;
+  		const radius = center - size * 0.11;
+
+  		for (let i = 0; i < 12; i++) {
+    	const tick = document.createElement("div");
+    	tick.className = "tick";
+    	tick.style.transform = `rotate(${i * 30}deg) translateX(-50%)`;
+    	clock.appendChild(tick);
+    	
+    	const number = document.createElement("div");
+    	number.className = "number";
+    	const angle = (i * 30 - 90) * Math.PI / 180;
+    	const x = center + radius * Math.cos(angle);
+    	const y = center + radius * Math.sin(angle);
+    	number.style.left = `${x}px`;
+    	number.style.top = `${y}px`;
+    	number.textContent = i === 0 ? 12 : i;
+    	clock.appendChild(number);
+  		}
+
+  		['hour', 'minute', 'second'].forEach(cls => {
+    	const hand = document.createElement('div');
+    	hand.className = `hand ${cls}`;
+    	clock.appendChild(hand);
+  		});
+
+  		const dot = document.createElement('div');
+  		dot.className = 'center-dot';
+  		clock.appendChild(dot);
+}
+
+    Object.keys(zones).forEach(createTicks);
+
+    function updateClocks() {
+      const now = new Date();
+      const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+
+      for (const [id, offset] of Object.entries(zones)) {
+        const local = new Date(utc + offset * 3600000);
+        const hours = local.getHours() % 12;
+        const minutes = local.getMinutes();
+        const seconds = local.getSeconds();
+
+        const clock = document.getElementById(id);
+        clock.querySelector('.hour').style.transform = `rotate(${(hours + minutes / 60) * 30}deg) translateX(-50%)`;
+        clock.querySelector('.minute').style.transform = `rotate(${(minutes + seconds / 60) * 6}deg) translateX(-50%)`;
+        clock.querySelector('.second').style.transform = `rotate(${seconds * 6}deg) translateX(-50%)`;
+
+        const container = clock.parentElement;
+        const indicator = container.querySelector('.am-pm-indicator');
+        const isAM = local.getHours() < 12;
+        indicator.textContent = isAM ? '☀️' : '🌙';
+        indicator.classList.toggle('night', !isAM);
+      }
+    }
+
+    function updateCurrentTime() {
+      const now = new Date();
+      const formatted = now.toLocaleString('en-GB', {
+        hour12: false,
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+      document.getElementById('current-time').innerText = formatted;
+    }
 
     function updateCountdown() {
-      const now = new Date().getTime();
-      const diff = targetDate - now;
+      const now = new Date();
+      const diff = targetTime - now;
 
       if (diff <= 0) {
-        document.getElementById('days').innerText = "0";
-        document.getElementById('hours').innerText = "0";
-        document.getElementById('minutes').innerText = "0";
-        document.getElementById('seconds').innerText = "0";
+        document.getElementById('countdown').innerText = "Time's up!";
         return;
       }
 
-      document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-      document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      document.getElementById('seconds').innerText = Math.floor((diff % (1000 * 60)) / 1000);
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('countdown').innerText =
+        `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
     }
 
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-  </script>
+    function updateAll() {
+      updateClocks();
+      updateCurrentTime();
+      updateCountdown();
+    }
+
+    	updateAll();
+    	setInterval(updateAll, 1000);
+</script>
+
 </body>
 </html>
+       
