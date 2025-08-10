@@ -8,7 +8,9 @@
       margin: 0;
       padding-top: 140px;
       font-family: sans-serif;
-      background: #f0f0f0;
+      color: white; /* Default text color */
+      /*background-image: url('https://wallpaperaccess.com/full/403960.jpg')*/
+      background-image: url('https://static.vecteezy.com/system/resources/previews/055/097/545/non_2x/bright-red-decorations-with-lanterns-and-flowers-in-an-interior-setting-during-festive-season-free-photo.jpeg')
     }
 
     #image-container {
@@ -45,6 +47,16 @@
       margin-top: 20px;
       margin-bottom: 40px;
     }
+    
+    #current-time {
+  		color: #FFD700;
+  		font-weight: bold;
+}
+
+		#countdown {
+  		color: #FFD700;
+  		font-weight: bold;
+}
 
     .clock-row {
       display: flex;
@@ -74,11 +86,11 @@
     .am-pm-indicator {
       margin-left: 8px;
       font-size: 1.2em;
-      color: #f39c12;
+      color: #FFD700;
     }
 
     .am-pm-indicator.night {
-      color: #3498db;
+      color: #F5F5DC;
     }
 
 :root {
@@ -172,9 +184,9 @@
     </div>
   </div>
 
-	<div id="countdown-label">Overall Milestone Archieved in Total:3/30 </div>
-	<div id="countdown-label">Current Key Milestone: 3D Model &lt;Sep 2025&gt; </div>
-  <div id="countdown-label">Countdown for Final Project Completion:<span id="countdown"></span></div>
+	<div id="countdown-label">Overall Milestone Archieved in Total: 3/30 </div>
+	<div id="countdown-label">Current Key Milestone: 3D Model, Sep 2025 </div>
+  <div id="countdown-label">Countdown for Final Project Completion: <span id="countdown"></span></div>
   <div id="countdown-label">Quote of the week: 12 Golden Safety Rules</div>
 
 <script>
@@ -241,7 +253,7 @@
         const container = clock.parentElement;
         const indicator = container.querySelector('.am-pm-indicator');
         const isAM = local.getHours() < 12;
-        indicator.textContent = isAM ? '☀️' : '🌙';
+        indicator.textContent = isAM ? 'am' : 'pm';
         indicator.classList.toggle('night', !isAM);
       }
     }
@@ -276,7 +288,7 @@
       const seconds = Math.floor((diff / 1000) % 60);
 
       document.getElementById('countdown').innerText =
-        `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
+        `${days} Days ${hours} Hr ${minutes} Min ${seconds} Sec`;
     }
 
     function updateAll() {
