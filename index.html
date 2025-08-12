@@ -15,7 +15,8 @@
       background-repeat: no-repeat;       /* 禁止重复 */
   		background-size: cover;             /* 拉伸填满整个屏幕 */
   		background-position: center center; /* 居中显示 */
-      background-image: url('https://static.vecteezy.com/system/resources/previews/055/097/545/non_2x/bright-red-decorations-with-lanterns-and-flowers-in-an-interior-setting-during-festive-season-free-photo.jpeg')
+  		background: #000000;
+      /*background-image: url('https://static.vecteezy.com/system/resources/previews/055/097/545/non_2x/bright-red-decorations-with-lanterns-and-flowers-in-an-interior-setting-during-festive-season-free-photo.jpeg')*/
     }
 	
 			.container {
@@ -101,16 +102,14 @@
   			text-overflow: unset;      /* 不使用省略号 */
 }
 
-    	#countdown-label {
+		.countdown-label {
       font-size: 46px;
       margin-top: 10px;
       margin-bottom: 20px;
-    }
-    
 }
 
 		#countdown {
-  		color: #FFD700;
+  		color: #FFD700 !important;
   		font-weight: bold;
 }
 
@@ -241,8 +240,23 @@
 	  <div id="current-time"></div>
 	</div>
 
-  <div id="message">GPP Ar-Ratawi Gas Midstream Project</div>
+  <div id="message">GPP Ar-Ratawi Gas Midstream Project<br><br><br></div>
 
+<div class="status-row">
+  <div class="status-left">
+    <div class="countdown-label">Overall Milestone Achieved: </div>
+    <div class="countdown-label">Current Milestone:</div>
+    <div class="countdown-label">RFSU Remaining Days:</div>
+    <div class="countdown-label">Golden Safety Rule of the Month:</div>
+    <div class="countdown-label">Quote of the Week:</div>
+  </div>
+  <div class="status-right">
+    <div class="countdown-label"><a href="Countdownl.html">3/30</a></div>
+    <div class="countdown-label">3D Model</div>
+    <div class="countdown-label"><span id="countdown"></span></div>
+    <div class="countdown-label">Confined Space (Rule No.8)</div><br><br><br><br><br><br><br><br><br><br><br><br>
+  </div>
+</div>
   <div class="clock-row">
     <div class="clock-container">
       <div class="city-label">Abu Dhabi <span class="am-pm-indicator"></span></div>
@@ -265,22 +279,7 @@
     </div>
   </div>
 
-<div class="status-row">
-  <div class="status-left">
-    <div id="countdown-label">Overall Milestone: </div>
-    <div id="countdown-label">Current Milestone:</div>
-    <div id="countdown-label">Final Project Completion:</div>
-    <div id="countdown-label">Golden Safety Rules of the month:</div>
-    <div id="countdown-label">Golden Safety Rules of the week:</div>
-  </div>
-  <div class="status-right">
-    <div id="countdown-label"><a href="Countdownl.html">3/30</a></div>
-    <div id="countdown-label">3D Model</div>
-    <div id="countdown-label"><span id="countdown"></span></div>
-    <div id="countdown-label"></div>
-    <div id="countdown-label"></div>
-  </div>
-</div>
+
 
 <script>
     const zones = {
