@@ -7,7 +7,7 @@
   <style>
     body {
       margin: 0;
-      padding-top: 100px;
+      padding-top: 20px;
       font-family: sans-serif;
       height:100vh;
       width:100vw;
@@ -15,7 +15,8 @@
       background-repeat: no-repeat;       /* 禁止重复 */
   		background-size: cover;             /* 拉伸填满整个屏幕 */
   		background-position: center center; /* 居中显示 */
-      background-image: url('https://static.vecteezy.com/system/resources/previews/055/097/545/non_2x/bright-red-decorations-with-lanterns-and-flowers-in-an-interior-setting-during-festive-season-free-photo.jpeg')
+  		background: #59191f;
+      /*background-image: url('https://static.vecteezy.com/system/resources/previews/055/097/545/non_2x/bright-red-decorations-with-lanterns-and-flowers-in-an-interior-setting-during-festive-season-free-photo.jpeg')*/
     }
 	
 			.container {
@@ -23,7 +24,7 @@
   		height: 100vh;
   		display: flex;
   		flex-direction: column;
-  		justify-content: center;
+  		justify-content: flex-start; /* ✅ 改为顶部对齐 */
   		align-items: center;
 }
 
@@ -37,37 +38,78 @@
 }
 
     #image-container img {
-      width: 80px;
+      width: 120px;
       height: auto;
     }
 
     #message {
       text-align: center;
-      font-size: 26px;
+      font-size: 66px;
       font-weight: bold;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
     }
+    
+    #time-info {
+  		  position: absolute;
+  			top: 160px; /* 根据 logo 高度微调 */
+  			left: 8%;
+  			transform: translateX(-50%);
+  			text-align: center;
+}
+    
+    #weekday-display {
+  		font-size: 28px;
+  		font-weight: bold;
+  		color: #FFD700;
+  		margin-bottom:5px;
+}
 
-    #current-time-label {
-      text-align: center;
-      font-size: 16px;
-      margin-bottom: 5px;
-    }
-
-    #countdown-label {
-      text-align: center;
-      font-size: 16px;
-      margin-top: 5px;
-      margin-bottom: 5px;
-    }
-       
     #current-time {
+  		font-size: 28px;
   		color: #FFD700;
   		font-weight: bold;
+  		margin-bottom: 20px;
+    }
+
+			.status-row {
+			  display: flex;
+			  justify-content: flex-start; /* 不强制拉满 */
+			  gap: 10px; /* 控制左右间距 */
+			  margin-top: 40px;
+			  flex-wrap: wrap;
+			}
+			
+			.status-left, .status-right {
+  			display: inline-block;
+  			white-space: nowrap;
+  			width: auto; /* ✅ 允许根据内容扩展 */
+			} 	
+						
+			.status-left {
+			  text-align: left;
+			  width: min-content;
+			}
+			
+			.status-right {
+			  text-align: left;
+			  width: min-content;
+			}
+			
+			.status-left div,
+			.status-right div {
+  			white-space: nowrap;       /* 不换行 */
+  			overflow: visible;         /* 允许内容溢出 */
+  			text-overflow: unset;      /* 不使用省略号 */
+}
+
+		.countdown-label {
+      font-size: 46px;
+      margin-top: 10px;
+      margin-bottom: 20px;
 }
 
 		#countdown {
-  		color: #FFD700;
+  		color: #FFD700 !important;
   		font-weight: bold;
 }
 
@@ -83,7 +125,7 @@
       text-align: center;
       /*background: rgba(255, 0, 0, 0.1);*/
       width: 200px; /* 可根据表盘大小调整 */
-  		min-height: 180px; /* 保证所有容器高度一致 */
+  		min-height: 260px; /* 保证所有容器高度一致 */
   		display: flex;
   		flex-direction: column;
   		justify-content: flex-start;
@@ -91,9 +133,9 @@
     }
 
     .city-label {
-      margin-bottom: 5px;
+      margin-bottom: 10px;
       font-weight: bold;
-      font-size: 1.2em;
+      font-size: 1.6em;
     }
 
     .am-pm-indicator {
@@ -107,7 +149,7 @@
     }
 
 :root {
-  --clock-size: 100px;
+  --clock-size: 180px;
   --center: calc(var(--clock-size) / 2);
   --radius: calc(var(--center) - 20px);
 }
@@ -186,15 +228,35 @@
   </style>
 </head>
 <body>
-	<div class="bodycontainer">
+	<div class="container">
   <div id="image-container">
     <img src="TTE.png" alt="TTE Logo" />
     <img src="CNPC.png" alt="CNPC Logo" />
   </div>
 
-  <div id="message">GPP Ar-Ratawi Gas Midstream Project</div>
-  <div id="current-time-label">Current Time: <span id="current-time"></span></div>
+	<!-- 新增容器 -->
+	<div id="time-info">
+	  <div id="weekday-display"></div>
+	  <div id="current-time"></div>
+	</div>
 
+  <div id="message">GPP Ar-Ratawi Gas Midstream Project<br><br></div>
+
+<div class="status-row">
+  <div class="status-left">
+    <div class="countdown-label">Overall Milestone Achieved: </div>
+    <div class="countdown-label">Current Milestone:</div>
+    <div class="countdown-label">RFSU Remaining Days:</div>
+    <div class="countdown-label">Golden Safety Rule of the Month:<br><br><br></div>
+  </div>
+  <div class="status-right">
+    <div class="countdown-label">3/30 <a href="Countdownl.html">.</a></div>
+    <div class="countdown-label">30% 3D Model Review</div>
+    <div class="countdown-label"><span id="countdown"></span></div>
+    <div class="countdown-label">Confined Space (Rule No.8)<br><br><br></div>
+  </div>
+</div>
+	<div class="countdown-label">Quote of the Week: " Effort today, pride tomorrow "</div>
   <div class="clock-row">
     <div class="clock-container">
       <div class="city-label">Abu Dhabi <span class="am-pm-indicator"></span></div>
@@ -217,11 +279,7 @@
     </div>
   </div>
 
-	<div id="countdown-label">Overall Milestone Achieved in Total: 3/30</a> </div>
-	<div id="countdown-label">Current Key Milestone: 3D Model, Due date Sep 2025 </div>
-  <div id="countdown-label">Countdown for Final Project Completion:</div>
-  <div id="countdown-label"><span id="countdown"></span></div>
-  <div id="countdown-label">Quote of the Month/Week: 12 Golden Safety Rules</div>
+
 
 <script>
     const zones = {
@@ -297,7 +355,7 @@
   		const utc = now.getTime() + now.getTimezoneOffset() * 60000;
   		const abuDhabiTime = new Date(utc + 4 * 3600000); // UTC+4
   		
-  		const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  		const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   		const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
   		                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   		
@@ -309,7 +367,11 @@
   		const minute = abuDhabiTime.getMinutes().toString().padStart(2, '0');
   		const second = abuDhabiTime.getSeconds().toString().padStart(2, '0');
   		
-  		const formatted = `${day}, ${date} ${month} ${year}, ${hour}:${minute}:${second}`;
+  		// 显示星期
+  		document.getElementById('weekday-display').innerText = day;
+  		
+  		// 显示时间（换行）
+  		const formatted = `${date} ${month} ${year}, ${hour}:${minute}:${second}`;
   		document.getElementById('current-time').innerText = formatted;
 }
 
