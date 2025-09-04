@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,143 +12,126 @@
       font-family: sans-serif;
       height:100vh;
       width:100vw;
-      color: white;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center center;
-      background: #003152;
+      color: white; /* Default text color */
+      background-repeat: no-repeat;       /* 禁止重复 */
+  		background-size: cover;             /* 拉伸填满整个屏幕 */
+  		background-position: center center; /* 居中显示 */
+  		background: #003152;
+      /*background-image: url('https://static.vecteezy.com/system/resources/previews/055/097/545/non_2x/bright-red-decorations-with-lanterns-and-flowers-in-an-interior-setting-during-festive-season-free-photo.jpeg')*/
     }
+	
+			.container {
+  		width: 100vw;
+  		height: 100vh;
+  		display: flex;
+  		flex-direction: column;
+  		justify-content: flex-start; /* ✅ 改为顶部对齐 */
+  		align-items: center;
+}
 
-    .container {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-    }
-
-    #image-container {
-      position: absolute;
-      top: 20px;
-      left: 30px;
-      display: flex;
-      gap: 20px;
-      align-items: center;
-    }
+		#image-container {
+  		position: absolute;
+  		top: 20px;
+  		left: 30px;
+  		display: flex;
+  		gap: 20px;
+  		align-items: center;
+}
 
     #image-container img {
       width: 120px;
       height: auto;
     }
 
-    /* 新的主布局：左边时间，中间视频，右边文字 */
-		.main-row {
-		  display: flex;
-		  flex-direction: row;
-		  align-items: flex-start;
-		  gap: 40px;
-		  margin-top: 160px;
-		  width: 90%;
-		}
-
-    #time-info {
-     flex: 0 0 250px; /* 左侧栏宽度，可以根据需要调大一点 */
-     text-align: center;
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-		}		
-
-    #weekday-display {
-      font-size: 28px;
-      font-weight: bold;
-      color: #FFD700;
-      margin-bottom:5px;
-    }
-
-    #current-time {
-      font-size: 28px;
-      color: #FFD700;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-		.video-container {
-		  position: relative;
-		  width: 100%;        /* ✅ 跟文字容器宽度保持一致 */
-		  aspect-ratio: 16/9; /* 保持16:9比例 */
-		  overflow: hidden;
-		  background: black;
-		}
-		
-		.video-container iframe {
-		  position: absolute;
-		  top: 0;
-		  left: 0;
-		  width: 100%;  /* 填满容器宽度 */
-		  height: 100%; /* 按容器高度缩放 */
-		}
-		
-		/* 右边的文字 + 视频纵向排列 */
-		.status-column {
-		  flex: 1;
-		  display: flex;
-		  flex-direction: column;
-		  gap: 20px;
-		}
-
     #message {
-      text-align: left;
-      font-size: 46px;
+      text-align: center;
+      font-size: 66px;
       font-weight: bold;
       margin-bottom: 10px;
     }
+    
+    #time-info {
+  		  position: absolute;
+  			top: 160px; /* 根据 logo 高度微调 */
+  			left: 8%;
+  			transform: translateX(-50%);
+  			text-align: center;
+}
+    
+    #weekday-display {
+  		font-size: 28px;
+  		font-weight: bold;
+  		color: #FFD700;
+  		margin-bottom:5px;
+}
 
-    .status-row {
-      display: flex;
-      justify-content: flex-start;
-      gap: 10px;
-      margin-top: 40px;
-      flex-wrap: wrap;
+    #current-time {
+  		font-size: 28px;
+  		color: #FFD700;
+  		font-weight: bold;
+  		margin-bottom: 20px;
     }
 
-    .status-left, .status-right {
-      display: inline-block;
-      white-space: nowrap;
-      width: auto;
-    }
+			.status-row {
+			  display: flex;
+			  justify-content: flex-start; /* 不强制拉满 */
+			  gap: 10px; /* 控制左右间距 */
+			  margin-top: 40px;
+			  flex-wrap: wrap;
+			}
+			
+			.status-left, .status-right {
+  			display: inline-block;
+  			white-space: nowrap;
+  			width: auto; /* ✅ 允许根据内容扩展 */
+			} 	
+						
+			.status-left {
+  			width: min-content;
+  			text-align: left;
+			}
+			
+			.status-right {
+			  text-align: left;
+			  width: min-content;
+			}
+			
+			.status-left div,
+			.status-right div {
+  			white-space: nowrap;       /* 不换行 */
+  			overflow: visible;         /* 允许内容溢出 */
+  			text-overflow: unset;      /* 不使用省略号 */
+}
 
-    .status-left div,
-    .status-right div {
-      white-space: nowrap;
-      overflow: visible;
-      text-overflow: unset;
-    }
-
-    .countdown-label {
-      font-size: 26px;
+		.countdown-label {
+      font-size: 46px;
       margin-top: 10px;
       margin-bottom: 20px;
+}
+
+		#countdown {
+  		color: #FFD700 !important;
+  		font-weight: bold;
+}
+
+    .clock-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+      padding: 20px;
     }
 
-    #countdown {
-      color: #FFD700 !important;
-      font-weight: bold;
+    .clock-container {
+      text-align: center;
+      /*background: rgba(255, 0, 0, 0.1);*/
+      width: 200px; /* 可根据表盘大小调整 */
+  		min-height: 260px; /* 保证所有容器高度一致 */
+  		display: flex;
+  		flex-direction: column;
+  		justify-content: flex-start;
+  		align-items: center; 
     }
-
-		.clock-column {
-		  display: flex;
-		  flex-direction: column; /* 垂直排列 */
-		  gap: 20px; /* 每个时钟之间的间距 */
-		  margin-top: 20px;
-		  align-items: center;
-		}
-		
-		.clock-container {
-		  width: 180px;  /* 缩小一点，避免太宽 */
-		  min-height: 220px;
-		}
 
     .city-label {
       margin-bottom: 10px;
@@ -165,16 +149,16 @@
       color: #00F5DC;
     }
 
-    :root {
-      --clock-size: 180px;
-      --center: calc(var(--clock-size) / 2);
-      --radius: calc(var(--center) - 20px);
-    }
+:root {
+  --clock-size: 180px;
+  --center: calc(var(--clock-size) / 2);
+  --radius: calc(var(--center) - 20px);
+}
 
     .clock {
       position: relative;
-      width: var(--clock-size);
-      height: var(--clock-size);
+  		width: var(--clock-size);
+  		height: var(--clock-size);
       border: 8px solid #333;
       border-radius: 50%;
       background: white;
@@ -182,24 +166,24 @@
     }
     
     #abu {
-      background-image: url('https://www.shutterstock.com/shutterstock/photos/2034988331/display_1500/stock-vector-vector-artistic-abu-dhabi-united-arab-emirates-postcard-downtown-skyscrapers-panorama-hand-2034988331.jpg');
-      background-size: cover;
-    }
+  		background-image: url('https://www.shutterstock.com/shutterstock/photos/2034988331/display_1500/stock-vector-vector-artistic-abu-dhabi-united-arab-emirates-postcard-downtown-skyscrapers-panorama-hand-2034988331.jpg');
+  		background-size: cover;
+}
 
-    #paris {
-      background-image: url('https://i.pinimg.com/736x/76/8c/ea/768ceafb25f3604a7771c697e8df04a2--france-eiffel-tower-eiffel-towers.jpg');
-      background-size: cover;
-    }
+		#paris {
+  		background-image: url('https://i.pinimg.com/736x/76/8c/ea/768ceafb25f3604a7771c697e8df04a2--france-eiffel-tower-eiffel-towers.jpg');
+  		background-size: cover;
+}
 
-    #beijing {
-      background-image: url('https://thumbs.dreamstime.com/z/beijing-abstract-color-drawing-sketch-vector-illustration-isolated-white-background-146930137.jpg');
-      background-size: cover;
-    }
+		#beijing {
+  		background-image: url('https://thumbs.dreamstime.com/z/beijing-abstract-color-drawing-sketch-vector-illustration-isolated-white-background-146930137.jpg');
+  		background-size: cover;
+}
 
-    #basra {
-      background-image: url('https://st3.depositphotos.com/4930557/13509/v/450/depositphotos_135094604-stock-illustration-baghdad-cityscape-mosque-iraq-sketch.jpg');
-      background-size: cover;
-    }
+		#basra {
+  		background-image: url('https://st3.depositphotos.com/4930557/13509/v/450/depositphotos_135094604-stock-illustration-baghdad-cityscape-mosque-iraq-sketch.jpg');
+  		background-size: cover;
+}
 
     .hand {
       position: absolute;
@@ -225,15 +209,15 @@
       z-index: 4;
     }
 
-    .tick {
-      position: absolute;
-      width: 4px;
-      height: calc(var(--clock-size) * 0.07);
-      background: #333;
-      top: calc(var(--clock-size) * 0.02);
-      left: 50%;
-      transform-origin: center calc(var(--clock-size) / 2 - 4px);
-    }
+.tick {
+  position: absolute;
+  width: 4px;
+  height: calc(var(--clock-size) * 0.07);
+  background: #333;
+  top: calc(var(--clock-size) * 0.02);
+  left: 50%;
+  transform-origin: center calc(var(--clock-size) / 2 - 4px);
+}
 
     .number {
       position: absolute;
@@ -245,191 +229,188 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <div id="image-container">
-      <img src="TTE.png" alt="TTE Logo" />
-      <img src="CNPC.png" alt="CNPC Logo" />
+	<div class="container">
+  <div id="image-container">
+    <img src="TTE.png" alt="TTE Logo" />
+    <img src="CNPC.png" alt="CNPC Logo" />
+  </div>
+
+	<!-- 新增容器 -->
+	<div id="time-info">
+	  <div id="weekday-display"></div>
+	  <div id="current-time"></div>
+	  <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
+  		<iframe src="https://www.youtube.com/embed/sv5HQ-mqVP0?autoplay=1&mute=1&loop=1&playlist=sv5HQ-mqVP0"
+    	style="position:absolute; top:0; left:0; width:100%; height:100%;"
+    	frameborder="0" allowfullscreen>
+  		</iframe>
+		</div>
+	</div>
+
+  <div id="message">GPP Ar-Ratawi Gas Midstream Project<br><br></div>
+
+<div class="status-row">
+  <div class="status-left">
+    <div class="countdown-label">Overall Milestone Achieved: </div>
+    <div class="countdown-label">Current Milestone:</div>
+    <div class="countdown-label" style="color: #FFD700">RFSU Remaining Days:</div>
+    <div class="countdown-label">Golden Safety Rule of the Month:<br><br></div>
+  </div>
+
+  <div class="status-right">
+    <div class="countdown-label">3/30 <a href="Countdownl.html">.</a></div>
+    <div class="countdown-label">30% 3D Model Review</div>
+    <div class="countdown-label"><span id="countdown"></span></div>
+    <div class="countdown-label">Confined Space (Rule No.8)<br><br></div>
+  </div>
+</div>
+	<div class="countdown-label">Quote of the Week: "Every project is an opportunity to learn, to <br>figure out challenges, and to innovate." – David Rockwell</div>
+  <div class="clock-row">
+    <div class="clock-container">
+      <div class="city-label">Abu Dhabi <span class="am-pm-indicator"></span></div>
+      <div class="clock" id="abu"></div>
     </div>
 
-    <!-- 三栏布局 -->
-    <div class="main-row">
-  	<!-- 左边：时间 + 时钟 -->
-  		<div id="time-info">
-  		  <div id="weekday-display"></div>
-  		  <div id="current-time"></div>
-  		  <div class="clock-column">
-  		    <!-- 四个时钟 -->
-  		    <div class="clock-container">
-  		      <div class="city-label">Abu Dhabi <span class="am-pm-indicator"></span></div>
-  		      <div class="clock" id="abu"></div>
-  		    </div>
-  		    <div class="clock-container">
-  		      <div class="city-label">Paris <span class="am-pm-indicator"></span></div>
-  		      <div class="clock" id="paris"></div>
-  		    </div>
-  		    <div class="clock-container">
-  		      <div class="city-label">Beijing <span class="am-pm-indicator"></span></div>
-  		      <div class="clock" id="beijing"></div>
-  		    </div>
-  		    <div class="clock-container">
-  		      <div class="city-label">Basrah <span class="am-pm-indicator"></span></div>
-  		      <div class="clock" id="basra"></div>
-  		    </div>
-  		  </div>
-  		</div>
+    <div class="clock-container">
+      <div class="city-label">Paris <span class="am-pm-indicator"></span></div>
+      <div class="clock" id="paris"></div>
+    </div>
 
-  	<!-- 右边：文字 + 视频 -->
-  	<div class="status-column">
-  	  <div id="message">GPP Ar-Ratawi Gas Midstream Project<br><br></div>
-  	
-  	  <div class="status-row">
-  	    <div class="status-left">
-  	      <div class="countdown-label">Overall Milestone Achieved: </div>
-  	      <div class="countdown-label">Current Milestone:</div>
-  	      <div class="countdown-label" style="color: #FFD700">RFSU Remaining Days:</div>
-  	      <div class="countdown-label">Golden Safety Rule of the Month:<br><br></div>
-  	    </div>
-  	
-  	    <div class="status-right">
-  	      <div class="countdown-label">3/30 <a href="Countdownl.html">.</a></div>
-  	      <div class="countdown-label">30% 3D Model Review</div>
-  	      <div class="countdown-label"><span id="countdown"></span></div>
-  	      <div class="countdown-label">Confined Space (Rule No.8)<br><br></div>
-  	    </div>
-  	  </div>
-  	
-  	  <div class="countdown-label">
-  	    Quote of the Week: "Every project is an opportunity to learn, to <br>
-  	    figure out challenges, and to innovate." – David Rockwell
-  	  </div>
-  	  
-  	<!-- 视频放在文字内容下面 -->
-    <div class="video-container">
-      <iframe src="https://www.youtube.com/embed/sv5HQ-mqVP0?autoplay=1&mute=1&loop=1&playlist=sv5HQ-mqVP0"
-        frameborder="0" allowfullscreen></iframe>
-		    </div>
-		  </div>
-		</div>
+    <div class="clock-container">
+      <div class="city-label">Beijing <span class="am-pm-indicator"></span></div>
+      <div class="clock" id="beijing"></div>
+    </div>
 
-    <script>
-      const zones = {
-        abu: 4,
-        paris: 2,
-        beijing: 8,
-        basra: 3
-      };
-
-      const targetTime = new Date("2028-05-12T00:00:00");
-
-      function createTicks(clockId) {
-        const clock = document.getElementById(clockId);
-        const size = clock.offsetWidth;
-        const center = size / 2;
-        const radius = center - size * 0.11;
-
-        for (let i = 0; i < 12; i++) {
-          const tick = document.createElement("div");
-          tick.className = "tick";
-          tick.style.transform = `rotate(${i * 30}deg) translateX(-50%)`;
-          clock.appendChild(tick);
-
-          const number = document.createElement("div");
-          number.className = "number";
-          const angle = (i * 30 - 90) * Math.PI / 180;
-          const x = center + radius * Math.cos(angle);
-          const y = center + radius * Math.sin(angle);
-          number.style.left = `${x}px`;
-          number.style.top = `${y}px`;
-          number.textContent = i === 0 ? 12 : i;
-          clock.appendChild(number);
-        }
-
-        ['hour', 'minute', 'second'].forEach(cls => {
-          const hand = document.createElement('div');
-          hand.className = `hand ${cls}`;
-          clock.appendChild(hand);
-        });
-
-        const dot = document.createElement('div');
-        dot.className = 'center-dot';
-        clock.appendChild(dot);
-      }
-
-      Object.keys(zones).forEach(createTicks);
-
-      function updateClocks() {
-        const now = new Date();
-        const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-
-        for (const [id, offset] of Object.entries(zones)) {
-          const local = new Date(utc + offset * 3600000);
-          const hours = local.getHours() % 12;
-          const minutes = local.getMinutes();
-          const seconds = local.getSeconds();
-
-          const clock = document.getElementById(id);
-          clock.querySelector('.hour').style.transform = `rotate(${(hours + minutes / 60) * 30}deg) translateX(-50%)`;
-          clock.querySelector('.minute').style.transform = `rotate(${(minutes + seconds / 60) * 6}deg) translateX(-50%)`;
-          clock.querySelector('.second').style.transform = `rotate(${seconds * 6}deg) translateX(-50%)`;
-
-          const container = clock.parentElement;
-          const indicator = container.querySelector('.am-pm-indicator');
-          const isAM = local.getHours() < 12;
-          indicator.textContent = isAM ? 'am' : 'pm';
-          indicator.classList.toggle('night', !isAM);
-        }
-      }
-
-      function updateCurrentTime() {
-        const now = new Date();
-        const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-        const abuDhabiTime = new Date(utc + 4 * 3600000);
-
-        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-        const day = days[abuDhabiTime.getDay()];
-        const date = abuDhabiTime.getDate().toString().padStart(2, '0');
-        const month = months[abuDhabiTime.getMonth()];
-        const year = abuDhabiTime.getFullYear();
-        const hour = abuDhabiTime.getHours().toString().padStart(2, '0');
-        const minute = abuDhabiTime.getMinutes().toString().padStart(2, '0');
-        const second = abuDhabiTime.getSeconds().toString().padStart(2, '0');
-
-        document.getElementById('weekday-display').innerText = day;
-        document.getElementById('current-time').innerText =
-          `${date} ${month} ${year}, ${hour}:${minute}:${second}`;
-      }
-
-      function updateCountdown() {
-        const now = new Date();
-        const diff = targetTime - now;
-
-        if (diff <= 0) {
-          document.getElementById('countdown').innerText = "Time's up!";
-          return;
-        }
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
-
-        document.getElementById('countdown').innerText =
-          `${days} Days ${hours} Hr ${minutes} Min ${seconds} Sec`;
-      }
-
-      function updateAll() {
-        updateClocks();
-        updateCurrentTime();
-        updateCountdown();
-      }
-
-      updateAll();
-      setInterval(updateAll, 1000);
-    </script>
+    <div class="clock-container">
+      <div class="city-label">Basrah <span class="am-pm-indicator"></span></div>
+      <div class="clock" id="basra"></div>
+    </div>
   </div>
+
+
+
+<script>
+    const zones = {
+      abu: 4,
+      paris: 2,
+      beijing: 8,
+      basra: 3
+    };
+
+    const targetTime = new Date("2028-05-12T00:00:00"); // 可自定义目标时间
+
+    function createTicks(clockId) {
+  		const clock = document.getElementById(clockId);
+  		const size = clock.offsetWidth;
+  		const center = size / 2;
+  		const radius = center - size * 0.11;
+
+  		for (let i = 0; i < 12; i++) {
+    	const tick = document.createElement("div");
+    	tick.className = "tick";
+    	tick.style.transform = `rotate(${i * 30}deg) translateX(-50%)`;
+    	clock.appendChild(tick);
+    	
+    	const number = document.createElement("div");
+    	number.className = "number";
+    	const angle = (i * 30 - 90) * Math.PI / 180;
+    	const x = center + radius * Math.cos(angle);
+    	const y = center + radius * Math.sin(angle);
+    	number.style.left = `${x}px`;
+    	number.style.top = `${y}px`;
+    	number.textContent = i === 0 ? 12 : i;
+    	clock.appendChild(number);
+  		}
+
+  		['hour', 'minute', 'second'].forEach(cls => {
+    	const hand = document.createElement('div');
+    	hand.className = `hand ${cls}`;
+    	clock.appendChild(hand);
+  		});
+
+  		const dot = document.createElement('div');
+  		dot.className = 'center-dot';
+  		clock.appendChild(dot);
+}
+
+    Object.keys(zones).forEach(createTicks);
+
+    function updateClocks() {
+      const now = new Date();
+      const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+
+      for (const [id, offset] of Object.entries(zones)) {
+        const local = new Date(utc + offset * 3600000);
+        const hours = local.getHours() % 12;
+        const minutes = local.getMinutes();
+        const seconds = local.getSeconds();
+
+        const clock = document.getElementById(id);
+        clock.querySelector('.hour').style.transform = `rotate(${(hours + minutes / 60) * 30}deg) translateX(-50%)`;
+        clock.querySelector('.minute').style.transform = `rotate(${(minutes + seconds / 60) * 6}deg) translateX(-50%)`;
+        clock.querySelector('.second').style.transform = `rotate(${seconds * 6}deg) translateX(-50%)`;
+
+        const container = clock.parentElement;
+        const indicator = container.querySelector('.am-pm-indicator');
+        const isAM = local.getHours() < 12;
+        indicator.textContent = isAM ? 'am' : 'pm';
+        indicator.classList.toggle('night', !isAM);
+      }
+    }
+
+		function updateCurrentTime() {
+  		const now = new Date();
+  		const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+  		const abuDhabiTime = new Date(utc + 4 * 3600000); // UTC+4
+  		
+  		const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  		const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+  		                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  		
+  		const day = days[abuDhabiTime.getDay()];
+  		const date = abuDhabiTime.getDate().toString().padStart(2, '0');
+  		const month = months[abuDhabiTime.getMonth()];
+  		const year = abuDhabiTime.getFullYear();
+  		const hour = abuDhabiTime.getHours().toString().padStart(2, '0');
+  		const minute = abuDhabiTime.getMinutes().toString().padStart(2, '0');
+  		const second = abuDhabiTime.getSeconds().toString().padStart(2, '0');
+  		
+  		// 显示星期
+  		document.getElementById('weekday-display').innerText = day;
+  		
+  		// 显示时间（换行）
+  		const formatted = `${date} ${month} ${year}, ${hour}:${minute}:${second}`;
+  		document.getElementById('current-time').innerText = formatted;
+}
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetTime - now;
+
+      if (diff <= 0) {
+        document.getElementById('countdown').innerText = "Time's up!";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('countdown').innerText =
+        `${days} Days ${hours} Hr ${minutes} Min ${seconds} Sec`;
+    }
+
+    function updateAll() {
+      updateClocks();
+      updateCurrentTime();
+      updateCountdown();
+    }
+
+    	updateAll();
+    	setInterval(updateAll, 1000);
+</script>
+</div>
 </body>
 </html>
-
+       
