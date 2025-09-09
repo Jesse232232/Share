@@ -54,12 +54,14 @@
     }
 
     /* 左栏 Logo + 时间 */
-    #image-container {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      align-items: center;
-    }
+		#image-container {
+		  display: flex;
+		  flex-direction: row;   /* 横向排列 */
+		  gap: 20px;             /* Logo 之间的间距 */
+		  justify-content: center;
+		  align-items: center;
+		}
+
 
     #image-container img {
       width: 120px;
@@ -83,7 +85,7 @@
 
     /* 中间栏内容 */
     #message {
-      font-size: 40px;
+      font-size: 30px;
       font-weight: bold;
     }
 
@@ -248,14 +250,14 @@
         height: calc(50vw * 9 / 16);
       }
       :root {
-        --clock-size: 200px;
+        --clock-size: 160px;
       }
     }
 
     /* 中等屏幕 */
     @media (max-width: 1599px) and (min-width: 1200px) {
       :root {
-        --clock-size: 150px;
+        --clock-size: 160px;
       }
       #message {
         font-size: 2.2vw;
@@ -301,11 +303,14 @@
       </div>
       <div id="weekday-display"></div>
       <div id="current-time"></div>
+      <div class="countdown-label">
+        Quote of the Week: "Every project is an opportunity to learn, to figure out challenges, and to innovate." – David Rockwell
+      </div>
     </div>
 
     <!-- 中栏 -->
     <div class="center-column">
-      <div id="message">GPP Ar-Ratawi Gas Midstream Project<br></div>
+      <div id="message">GPP Ar-Ratawi Gas Midstream Project</div>
       <div class="status-row">
         <div class="status-left">
           <div class="countdown-label" style="color: #FFD700">RFSU Remaining Days:</div>
@@ -333,10 +338,7 @@
         </div>
       </div>
 
-      <div class="countdown-label">
-        Quote of the Week: "Every project is an opportunity to learn, to <br>
-        figure out challenges, and to innovate." – David Rockwell
-      </div>
+
     </div>
 
     <!-- 右栏 -->
