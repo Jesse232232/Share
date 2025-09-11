@@ -46,7 +46,7 @@
     }
 
     .right-column {
-      flex: 0 0 22%;
+      flex: 0 0 18%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -135,8 +135,8 @@
     }
 
     .clock-container {
-      width: 180px;
-      min-height: 220px;
+      width: 140px;
+      min-height: 180px;
       text-align: center;
     }
 
@@ -157,7 +157,7 @@
     }
 
     :root {
-      --clock-size: 8vw;
+      --clock-size: 100px;
       --center: calc(var(--clock-size) / 2);
       --radius: calc(var(--center) - 20px);
     }
@@ -250,14 +250,14 @@
         height: calc(50vw * 9 / 16);
       }
       :root {
-        --clock-size: 140px;
+        --clock-size: 120px;
       }
     }
 
     /* 中等屏幕 */
     @media (max-width: 1279px) and (min-width: 768px) {
       :root {
-        --clock-size: 8vw;
+        --clock-size: 120px;
       }
       #message {
         font-size: 2vw;
