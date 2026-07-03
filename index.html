@@ -24,7 +24,7 @@
       align-items: flex-start;
       padding: 20px;
       gap: 20px;
-      max-width: 1800px;   /* 限制最大宽度 */
+      max-width: 900px;   /* 限制最大宽度 */
       margin: 0 auto;      /* 居中显示 */
     }
 
@@ -34,7 +34,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 40px;
+      gap: 10px;
     }
 
     .center-column {
@@ -46,11 +46,11 @@
     }
 
     .right-column {
-      flex: 0 0 22%;
+      flex: 0 0 18%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 30px;
+      gap: 10px;
     }
 
     /* 左栏 Logo + 时间 */
@@ -64,20 +64,19 @@
 
 
     #image-container img {
-      width: 120px;
+      width: 80px;
       height: auto;
     }
 
     #weekday-display {
-      font-size: 22px;
+      font-size: 18px;
       font-weight: bold;
       color: #FFD700;
-      margin-bottom: 5px;
       text-align: center;
     }
 
     #current-time {
-      font-size: 20px;
+      font-size: 18px;
       color: #FFD700;
       font-weight: bold;
       text-align: center;
@@ -104,6 +103,10 @@
       font-size: 20px;
       margin-top: 10px;
     }
+    
+    .quote-label {
+      font-size: 18px;
+    }
 
     #countdown {
       color: #FFD700 !important;
@@ -129,21 +132,21 @@
     .clock-column {
       display: flex;
       flex-direction: column;
-      gap: 30px;
+      gap: 10px;
       align-items: center;
       margin-top: 20px;
     }
 
     .clock-container {
-      width: 180px;
-      min-height: 220px;
+      width: 120px;
+      min-height: 160px;
       text-align: center;
     }
 
     .city-label {
       margin-bottom: 10px;
       font-weight: bold;
-      font-size: 1.4em;
+      font-size: 1em;
     }
 
     .am-pm-indicator {
@@ -157,7 +160,7 @@
     }
 
     :root {
-      --clock-size: 120px;
+      --clock-size: 100px;
       --center: calc(var(--clock-size) / 2);
       --radius: calc(var(--center) - 20px);
     }
@@ -235,9 +238,9 @@
     }
 
     /* 大屏幕适配 */
-    @media (min-width: 1600px) {
+    @media (min-width: 1280px) {
       #message {
-        font-size: 2.3vw;
+        font-size: 2.2vw;
       }
       .countdown-label {
         font-size: 1.6vw;
@@ -250,29 +253,29 @@
         height: calc(50vw * 9 / 16);
       }
       :root {
-        --clock-size: 160px;
+        --clock-size: 100px;
       }
     }
 
     /* 中等屏幕 */
-    @media (max-width: 1599px) and (min-width: 1200px) {
+    @media (max-width: 1279px) and (min-width: 768px) {
       :root {
-        --clock-size: 160px;
+        --clock-size: 100px;
       }
       #message {
-        font-size: 2.2vw;
+        font-size: 2vw;
       }
       .countdown-label {
         font-size: 1.2vw;
       }
       .video-container {
-        width: 700px;
-        height: 394px;
+        width: 40vw;
+        height: calc(40vw * 9 / 16);
       }
     }
 
     /* 小屏幕 */
-    @media (max-width: 1199px) {
+    @media (max-width: 767px) {
       .container {
         flex-direction: column;
         align-items: center;
@@ -288,14 +291,14 @@
         align-items: center;
       }
       :root {
-        --clock-size: 120px;
+        --clock-size: 100px;
       }
     }
     
-        .slideshow-container {
+    .slideshow-container {
   		position: relative;
-  		width: 840px;
-  		height: 560px;
+  		width: 100%;
+  		height: 100%;
   		overflow: hidden;
 		}
 
@@ -303,7 +306,7 @@
 		  position: absolute;
 		  width: 100%;
 		  height: 100%;
-		  object-fit: cover;
+		  object-fit: contain;
 		  opacity: 0;
 		  transition: opacity 1s ease-in-out;
 		}
@@ -324,9 +327,17 @@
       </div>
       <div id="weekday-display"></div>
       <div id="current-time"></div>
-      <div class="countdown-label">
-        Quote of the Week: "Every project is an opportunity to learn, to figure out challenges, and to innovate." – David Rockwell
+      <div class="quote-label">
+        Quote of the Month: “Leaders don't wait for challenges — they anticipate them and shape the outcome.”
       </div>
+      <div class="left-column">
+      <div class="clock-column">
+        <div class="clock-container">
+          <div class="city-label">Basrah <span class="am-pm-indicator"></span></div>
+          <div class="clock" id="basra"></div>
+        </div>
+      </div>
+    </div>
     </div>
 
     <!-- 中栏 -->
@@ -344,9 +355,9 @@
       <div class="video-container">
         <iframe src="https://www.youtube.com/embed/vRmSQfTATC4?autoplay=1&mute=1&loop=1&playlist=vRmSQfTATC4"
           frameborder="0" allowfullscreen></iframe>
-          <!--iframe src="https://www.youtube.com/embed/SYbyrz0KqLQ?autoplay=1&mute=1&loop=1&playlist=SYbyrz0KqLQ"
-          frameborder="0" allowfullscreen></iframe-->
-        <!--div class="slideshow-container">
+        <!--iframe src="https://www.youtube.com/embed/SYbyrz0KqLQ?autoplay=1&mute=1&loop=1&playlist=SYbyrz0KqLQ"
+          frameborder="0" allowfullscreen></iframe-->  
+          <!--div class="slideshow-container">
   				<img class="slide" src="1.jpg" />
   				<img class="slide" src="2.jpg" />
   				<img class="slide" src="3.jpg" />
@@ -354,10 +365,8 @@
   				<img class="slide" src="5.jpg" />
   				<img class="slide" src="6.jpg" />
   				<img class="slide" src="7.jpg" />
-				</div-->        
-        <!--div style="font-size:30px;">Signing ceremony of GGIP contract in the presence of Patrick Pouyanné, Chairman & CEO of TotalEnergies, and Leu Kai, SVP of CPECC.</div-->
+				</div-->            
       </div>
-
       <div class="status-row">
         <div class="status-left">
           <div class="countdown-label">Overall Milestone Achieved: </div>
@@ -365,13 +374,15 @@
           <div class="countdown-label">Golden Safety Rule of the Month:<br><br></div>
         </div>
         <div class="status-right">
-          <div class="countdown-label">3/30 <a href="Countdownl.html">.</a></div>
-          <div class="countdown-label">30% 3D Model Review</div>
-          <div class="countdown-label">Confined Space (Rule No.8)<br><br></div>
+          <div class="countdown-label">10/30</div>
+          <div class="countdown-label">60% Model Review</div>
+          <div class="countdown-label">Lifting Operations (Rule 6)<br>"I follow the lifting plan"<a href="index.html">.</a><br></div>
         </div>
       </div>
 
-
+<div style="position:fixed;top:0;left:0;background:#000;color:#fff;z-index:9999;">
+  Width: <script>document.write(window.innerWidth);</script>px
+</div>
     </div>
 
     <!-- 右栏 -->
@@ -389,14 +400,11 @@
           <div class="city-label">Beijing <span class="am-pm-indicator"></span></div>
           <div class="clock" id="beijing"></div>
         </div>
-        <div class="clock-container">
-          <div class="city-label">Basrah <span class="am-pm-indicator"></span></div>
-          <div class="clock" id="basra"></div>
-        </div>
       </div>
     </div>
   </div>
   <script>
+  	console.log("Effective width:", window.innerWidth * window.devicePixelRatio);
     const zones = {
       abu: 4,
       paris: 2,
@@ -513,7 +521,7 @@
     updateAll();
     setInterval(updateAll, 1000);
     
-        		 const slides = document.querySelectorAll('.slide');
+    		    const slides = document.querySelectorAll('.slide');
 		let currentSlide = 0;
 		
 		function showSlide(index) {
@@ -527,24 +535,8 @@
 		  showSlide(currentSlide);
 		}
 		
-		if(slides.length>0){
-  showSlide(currentSlide);
-  setInterval(nextSlide,3000); // 每3秒切换一次
-}
-document.body.insertAdjacentHTML(
-    "beforeend",
-    `<div style="
-        position:fixed;
-        top:0;
-        right:0;
-        z-index:99999;
-        background:red;
-        color:#fff;
-        padding:5px;
-        font-size:20px;">
-        ${window.innerWidth} × ${window.innerHeight}
-    </div>`
-);
+		showSlide(currentSlide);
+		setInterval(nextSlide, 3000); // 每3秒切换一次
   </script>
 </body>
 </html>
