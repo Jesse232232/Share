@@ -531,6 +531,20 @@
   showSlide(currentSlide);
   setInterval(nextSlide,3000); // 每3秒切换一次
 }
+document.body.insertAdjacentHTML(
+    "beforeend",
+    `<div style="
+        position:fixed;
+        top:0;
+        right:0;
+        z-index:99999;
+        background:red;
+        color:#fff;
+        padding:5px;
+        font-size:20px;">
+        ${window.innerWidth} × ${window.innerHeight}
+    </div>`
+);
   </script>
 </body>
 </html>
