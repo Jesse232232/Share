@@ -342,8 +342,8 @@
       </div>
 
       <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/vRmSQfTATC4?autoplay=1&mute=1&loop=1&playlist=vRmSQfTATC4"
-          frameborder="0" allowfullscreen></iframe>
+          <!--iframe src="https://www.youtube.com/embed/vRmSQfTATC4?autoplay=1&mute=1&loop=1&playlist=vRmSQfTATC4"
+          frameborder="0" allowfullscreen></iframe-->
           <!--iframe src="https://www.youtube.com/embed/SYbyrz0KqLQ?autoplay=1&mute=1&loop=1&playlist=SYbyrz0KqLQ"
           frameborder="0" allowfullscreen></iframe-->
         <!--div class="slideshow-container">
@@ -511,50 +511,6 @@
     }
 
     updateAll();
-    
-    // 分离更新，减少不必要重绘
-setInterval(updateClocks,1000);
-setInterval(updateCurrentTime,1000);
-setInterval(updateCountdown,60000);
-
-// LG浏览器心跳，强制重绘
-setInterval(()=>{
-  const c=document.querySelector(".container");
-  if(c){
-    c.style.opacity="0.9999";
-    requestAnimationFrame(()=>{c.style.opacity="1";});
-  }
-},10000);
-
-// 定时触发resize
-setInterval(()=>{
-  window.dispatchEvent(new Event("resize"));
-},15000);
-
-// 每2小时自动刷新一次作为保险
-setInterval(()=>{
-  location.reload();
-},2*60*60*1000);
-
-    
-		    const slides = document.querySelectorAll('.slide');
-		let currentSlide = 0;
-		
-		function showSlide(index) {
-		  slides.forEach((slide, i) => {
-		    slide.classList.toggle('active', i === index);
-		  });
-		}
-		
-		function nextSlide() {
-		  currentSlide = (currentSlide + 1) % slides.length;
-		  showSlide(currentSlide);
-		}
-		
-		if(slides.length>0){
-  showSlide(currentSlide);
-  setInterval(nextSlide,5000);
-}
   </script>
 </body>
 </html>
