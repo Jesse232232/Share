@@ -511,20 +511,31 @@
     }
 
     updateAll();
-// 时钟每秒更新
+    
+    // 分离更新，减少不必要重绘
 setInterval(updateClocks,1000);
-// 当前时间每秒更新
 setInterval(updateCurrentTime,1000);
-// 倒计时每分钟更新一次，减少重绘
 setInterval(updateCountdown,60000);
 
-// 每30分钟自动刷新页面，避免LG浏览器长期运行图层丢失
-setInterval(()=>{ location.reload(); },30*60*1000);
+// LG浏览器心跳，强制重绘
+setInterval(()=>{
+  const c=document.querySelector(".container");
+  if(c){
+    c.style.opacity="0.9999";
+    requestAnimationFrame(()=>{c.style.opacity="1";});
+  }
+},10000);
 
-// 页面恢复可见时自动刷新
-document.addEventListener('visibilitychange',()=>{
- if(!document.hidden){ location.reload(); }
-});
+// 定时触发resize
+setInterval(()=>{
+  window.dispatchEvent(new Event("resize"));
+},15000);
+
+// 每2小时自动刷新一次作为保险
+setInterval(()=>{
+  location.reload();
+},2*60*60*1000);
+
     
 		    const slides = document.querySelectorAll('.slide');
 		let currentSlide = 0;
