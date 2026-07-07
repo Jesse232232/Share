@@ -99,8 +99,9 @@
     }
 
     #countdown {
-      color: #FFD700 !important;
+      color: #FFD700;
       font-weight: bold;
+      font-size: 32px;
     }
 
     .video-container {
@@ -324,14 +325,12 @@
     <!-- 中栏 -->
     <div class="center-column">
       <div id="message">GPP Ar-Ratawi Gas Midstream Project</div>
+      
       <div class="status-row">
-        <div class="status-left">
-          <div class="countdown-label" style="color: #FFD700">RFSU Remaining Days:</div>
+        <div style="text-align:center; display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap;">
+          <div class="countdown-label" style="color: #FFD700; margin: 0;">RFSU Remaining Days:</div>
+          <div id="countdown" style="font-size: 28px; margin: 0;"></div>
         </div>
-        <div class="status-right">
-          <div class="countdown-label"><span id="countdown"></span></div>
-        </div>
-      </div>
 
       <div class="video-container">
         <iframe src="https://www.youtube.com/embed/sv5HQ-mqVP0?autoplay=1&mute=1&loop=1&playlist=sv5HQ-mqVP0"
