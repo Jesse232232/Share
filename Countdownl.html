@@ -3,68 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Index</title>
+  <title>GPP Ar-Ratawi Dashboard - Small TV</title>
   <style>
     body {
       margin: 0;
-      font-family: sans-serif;
+      font-family: 'Arial', sans-serif;
       height: 100vh;
       width: 100vw;
       color: white;
       background: #003152;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
 
     .container {
       flex: 1;
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: flex-start;
+      flex-direction: column;
       padding: 20px;
-      gap: 20px;
-      max-width: 1800px;   /* 限制最大宽度 */
-      margin: 0 auto;      /* 居中显示 */
+      gap: 25px;
+      max-width: 980px;
+      margin: 0 auto;
+      box-sizing: border-box;
     }
 
-    /* 三栏布局 */
-    .left-column {
-      flex: 0 0 22%;
+    .top-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .left-info {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 40px;
+      gap: 15px;
+      flex: 1;
     }
 
-    .center-column {
+    .center-main {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .right-clocks {
       flex: 1;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      gap: 30px;
+      gap: 20px;
     }
 
-    .right-column {
-      flex: 0 0 22%;
+    #image-container {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 30px;
+      flex-direction: row;
+      gap: 20px;
+      justify-content: center;
     }
-
-    /* 左栏 Logo + 时间 */
-		#image-container {
-		  display: flex;
-		  flex-direction: row;   /* 横向排列 */
-		  gap: 20px;             /* Logo 之间的间距 */
-		  justify-content: center;
-		  align-items: center;
-		}
-
 
     #image-container img {
-      width: 120px;
+      width: 130px;
       height: auto;
     }
 
@@ -72,49 +74,44 @@
       font-size: 22px;
       font-weight: bold;
       color: #FFD700;
-      margin-bottom: 5px;
       text-align: center;
     }
 
     #current-time {
-      font-size: 20px;
+      font-size: 21px;
       color: #FFD700;
       font-weight: bold;
       text-align: center;
     }
 
-    /* 中间栏内容 */
     #message {
-      font-size: 30px;
+      font-size: 32px;
       font-weight: bold;
+      text-align: center;
     }
 
     .status-row {
       display: flex;
-      justify-content: flex-start;
+      justify-content: center;
       gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .status-left, .status-right {
-      display: inline-block;
     }
 
     .countdown-label {
       font-size: 20px;
-      margin-top: 10px;
     }
 
     #countdown {
-      color: #FFD700 !important;
+      color: #FFD700;
       font-weight: bold;
+      font-size: 26px;
     }
 
     .video-container {
-      width: 640px;
-      height: 360px;
+      width: 620px;
+      height: 350px;
       position: relative;
       overflow: hidden;
+      border-radius: 6px;
     }
 
     .video-container iframe {
@@ -125,30 +122,44 @@
       height: 100%;
     }
 
-    /* 右栏时钟 */
-    .clock-column {
+    .info-table {
+      width: 100%;
+      max-width: 620px;
+    }
+
+    .info-row {
       display: flex;
-      flex-direction: column;
-      gap: 30px;
-      align-items: center;
-      margin-top: 20px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .label {
+      width: 260px;
+      flex-shrink: 0;
+      font-size: 19px;
+      line-height: 1.4;
+    }
+
+    .value {
+      flex: 1;
+      font-size: 19px;
+      line-height: 1.4;
     }
 
     .clock-container {
-      width: 180px;
-      min-height: 220px;
+      width: 160px;
       text-align: center;
     }
 
     .city-label {
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       font-weight: bold;
-      font-size: 1.4em;
+      font-size: 1.35em;
     }
 
     .am-pm-indicator {
-      margin-left: 8px;
-      font-size: 1.1em;
+      margin-left: 6px;
+      font-size: 1.05em;
       color: #FFD700;
     }
 
@@ -157,9 +168,7 @@
     }
 
     :root {
-      --clock-size: 120px;
-      --center: calc(var(--clock-size) / 2);
-      --radius: calc(var(--center) - 20px);
+      --clock-size: 130px;
     }
 
     .clock {
@@ -170,27 +179,13 @@
       border-radius: 50%;
       background: white;
       overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     }
 
-    #abu {
-      background-image: url('https://www.shutterstock.com/shutterstock/photos/2034988331/display_1500/stock-vector-vector-artistic-abu-dhabi-united-arab-emirates-postcard-downtown-skyscrapers-panorama-hand-2034988331.jpg');
-      background-size: cover;
-    }
-
-    #paris {
-      background-image: url('https://i.pinimg.com/736x/76/8c/ea/768ceafb25f3604a7771c697e8df04a2--france-eiffel-tower-eiffel-towers.jpg');
-      background-size: cover;
-    }
-
-    #beijing {
-      background-image: url('https://thumbs.dreamstime.com/z/beijing-abstract-color-drawing-sketch-vector-illustration-isolated-white-background-146930137.jpg');
-      background-size: cover;
-    }
-
-    #basra {
-      background-image: url('https://st3.depositphotos.com/4930557/13509/v/450/depositphotos_135094604-stock-illustration-baghdad-cityscape-mosque-iraq-sketch.jpg');
-      background-size: cover;
-    }
+    #abu { background-image: url('https://www.shutterstock.com/shutterstock/photos/2034988331/display_1500/stock-vector-vector-artistic-abu-dhabi-united-arab-emirates-postcard-downtown-skyscrapers-panorama-hand-2034988331.jpg'); background-size: cover; }
+    #paris { background-image: url('https://i.pinimg.com/736x/76/8c/ea/768ceafb25f3604a7771c697e8df04a2--france-eiffel-tower-eiffel-towers.jpg'); background-size: cover; }
+    #beijing { background-image: url('https://thumbs.dreamstime.com/z/beijing-abstract-color-drawing-sketch-vector-illustration-isolated-white-background-146930137.jpg'); background-size: cover; }
+    #basra { background-image: url('https://st3.depositphotos.com/4930557/13509/v/450/depositphotos_135094604-stock-illustration-baghdad-cityscape-mosque-iraq-sketch.jpg'); background-size: cover; }
 
     .hand {
       position: absolute;
@@ -200,14 +195,14 @@
       background: #333;
     }
 
-    .hour { width: 6px; height: calc(var(--clock-size) * 0.33); z-index: 3; }
-    .minute { width: 4px; height: calc(var(--clock-size) * 0.44); z-index: 2; }
-    .second { width: 2px; height: calc(var(--clock-size) * 0.55); background: red; z-index: 1; }
+    .hour { width: 6px; height: calc(var(--clock-size) * 0.34); z-index: 3; }
+    .minute { width: 4px; height: calc(var(--clock-size) * 0.46); z-index: 2; }
+    .second { width: 2.5px; height: calc(var(--clock-size) * 0.56); background: red; z-index: 1; }
 
     .center-dot {
       position: absolute;
-      width: calc(var(--clock-size) * 0.07);
-      height: calc(var(--clock-size) * 0.07);
+      width: 11px;
+      height: 11px;
       background: #333;
       border-radius: 50%;
       top: 50%;
@@ -221,162 +216,93 @@
       width: 4px;
       height: calc(var(--clock-size) * 0.07);
       background: #333;
-      top: calc(var(--clock-size) * 0.02);
+      top: calc(var(--clock-size) * 0.03);
       left: 50%;
       transform-origin: center calc(var(--clock-size) / 2 - 4px);
     }
 
     .number {
       position: absolute;
-      font-size: calc(var(--clock-size) * 0.08);
+      font-size: calc(var(--clock-size) * 0.085);
       font-weight: bold;
       color: #333;
       transform: translate(-50%, -50%);
     }
-
-    /* 大屏幕适配 */
-    @media (min-width: 1600px) {
-      #message {
-        font-size: 2.3vw;
-      }
-      .countdown-label {
-        font-size: 1.6vw;
-      }
-      #weekday-display, #current-time {
-        font-size: 1.4vw;
-      }
-      .video-container {
-        width: 50vw;
-        height: calc(50vw * 9 / 16);
-      }
-      :root {
-        --clock-size: 160px;
-      }
-    }
-
-    /* 中等屏幕 */
-    @media (max-width: 1599px) and (min-width: 1200px) {
-      :root {
-        --clock-size: 160px;
-      }
-      #message {
-        font-size: 2.2vw;
-      }
-      .countdown-label {
-        font-size: 1.2vw;
-      }
-      .video-container {
-        width: 60vw;
-        height: calc(60vw * 9 / 16);
-      }
-    }
-
-    /* 小屏幕 */
-    @media (max-width: 1199px) {
-      .container {
-        flex-direction: column;
-        align-items: center;
-      }
-      .left-column, .right-column {
-        flex: 1;
-        flex-direction: row;
-        justify-content: space-around;
-        width: 100%;
-      }
-      .center-column {
-        width: 100%;
-        align-items: center;
-      }
-      :root {
-        --clock-size: 120px;
-      }
-    }
-  
-.info-table{margin-top:15px;}
-.info-row{display:flex;align-items:flex-start;margin-bottom:18px;}
-.label{width:330px;flex-shrink:0;font-size:20px;line-height:1.5;}
-.value{flex:1;font-size:20px;line-height:1.5;word-break:break-word;}
-
-</style>
+  </style>
 </head>
 <body>
   <div class="container">
-    <!-- 左栏 -->
-    <div class="left-column">
-      <div id="image-container">
-        <img src="TTE.png" alt="TTE Logo" />
-        <img src="CNPC.png" alt="CNPC Logo" />
+    <!-- Top: Logos + Time + Quote -->
+    <div class="top-section">
+      <div class="left-info">
+        <div id="image-container">
+          <img src="https://via.placeholder.com/130x60/003152/FFD700?text=TTE" alt="TTE Logo" />
+          <img src="https://via.placeholder.com/130x60/003152/FFD700?text=CNPC" alt="CNPC Logo" />
+        </div>
+        <div id="weekday-display"></div>
+        <div id="current-time"></div>
       </div>
-      <div id="weekday-display"></div>
-      <div id="current-time"></div>
-      <div class="countdown-label">
-        Quote of the Month: “Strong teams deliver safe projects.”
+      
+      <div class="center-main">
+        <div id="message">GPP Ar-Ratawi Gas Midstream Project</div>
+        
+        <div class="status-row">
+          <div style="text-align:center;">
+            <div class="countdown-label" style="color:#FFD700">RFSU Remaining Days:</div>
+            <div id="countdown"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-clocks">
+        <!-- Clocks will be placed here in a compact grid if needed, but keeping stacked for clarity -->
       </div>
     </div>
 
-    <!-- 中栏 -->
-    <div class="center-column">
-      <div id="message">GPP Ar-Ratawi Gas Midstream Project</div>
-      <div class="status-row">
-        <div class="status-left">
-          <div class="countdown-label" style="color: #FFD700">RFSU Remaining Days:</div>
-        </div>
-        <div class="status-right">
-          <div class="countdown-label"><span id="countdown"></span></div>
-        </div>
-      </div>
-
+    <!-- Main Content -->
+    <div style="display:flex; gap:30px; justify-content:center; flex-wrap:wrap;">
       <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/vRmSQfTATC4?autoplay=1&mute=1&loop=1&playlist=vRmSQfTATC4"
-          frameborder="0" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/vRmSQfTATC4?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=vRmSQfTATC4" 
+                frameborder="0" allowfullscreen></iframe>
       </div>
 
-<div class="info-table">
-<div class="info-row"><div class="label">Overall Milestone Achieved:</div><div class="value">10/30 <a href="Countdownl.html">.</a></div></div>
-<div class="info-row"><div class="label">Current Milestone:</div><div class="value">60% Model Review</div></div>
-<div class="info-row"><div class="label">Golden Safety Rule of the Month:</div><div class="value">Powered Systems (Rule 7)<br>"I check the isolation and absence of energy and fluids before any intervention."</div></div>
-</div>
-
-
+      <div class="info-table" style="min-width:340px;">
+        <div class="info-row"><div class="label">Overall Milestone Achieved:</div><div class="value">10/30</div></div>
+        <div class="info-row"><div class="label">Current Milestone:</div><div class="value">60% Model Review</div></div>
+        <div class="info-row"><div class="label">Golden Safety Rule of the Month:</div><div class="value">Powered Systems (Rule 7)<br>"I check the isolation and absence of energy and fluids before any intervention."</div></div>
+      </div>
     </div>
 
-    <!-- 右栏 -->
-    <div class="right-column">
-      <div class="clock-column">
-        <div class="clock-container">
-          <div class="city-label">Abu Dhabi <span class="am-pm-indicator"></span></div>
-          <div class="clock" id="abu"></div>
-        </div>
-        <div class="clock-container">
-          <div class="city-label">Paris <span class="am-pm-indicator"></span></div>
-          <div class="clock" id="paris"></div>
-        </div>
-        <div class="clock-container">
-          <div class="city-label">Beijing <span class="am-pm-indicator"></span></div>
-          <div class="clock" id="beijing"></div>
-        </div>
-        <div class="clock-container">
-          <div class="city-label">Basrah <span class="am-pm-indicator"></span></div>
-          <div class="clock" id="basra"></div>
-        </div>
+    <!-- Bottom Clocks for Small Screen -->
+    <div style="display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin-top: 15px;">
+      <div class="clock-container">
+        <div class="city-label">Abu Dhabi <span class="am-pm-indicator"></span></div>
+        <div class="clock" id="abu"></div>
+      </div>
+      <div class="clock-container">
+        <div class="city-label">Paris <span class="am-pm-indicator"></span></div>
+        <div class="clock" id="paris"></div>
+      </div>
+      <div class="clock-container">
+        <div class="city-label">Beijing <span class="am-pm-indicator"></span></div>
+        <div class="clock" id="beijing"></div>
+      </div>
+      <div class="clock-container">
+        <div class="city-label">Basrah <span class="am-pm-indicator"></span></div>
+        <div class="clock" id="basra"></div>
       </div>
     </div>
   </div>
-  <script>
-    const zones = {
-      abu: 4,
-      paris: 2,
-      beijing: 8,
-      basra: 3
-    };
 
+  <script>
+    const zones = { abu: 4, paris: 2, beijing: 8, basra: 3 };
     const targetTime = new Date("2028-05-12T00:00:00");
 
     function createTicks(clockId) {
       const clock = document.getElementById(clockId);
       const size = clock.offsetWidth;
       const center = size / 2;
-      const radius = center - size * 0.11;
+      const radius = center - size * 0.13;
 
       for (let i = 0; i < 12; i++) {
         const tick = document.createElement("div");
@@ -414,19 +340,23 @@
 
       for (const [id, offset] of Object.entries(zones)) {
         const local = new Date(utc + offset * 3600000);
-        const hours = local.getHours() % 12;
+        const hours = local.getHours() % 12 || 12;
         const minutes = local.getMinutes();
         const seconds = local.getSeconds();
 
         const clock = document.getElementById(id);
-        clock.querySelector('.hour').style.transform = `rotate(${(hours + minutes / 60) * 30}deg) translateX(-50%)`;
-        clock.querySelector('.minute').style.transform = `rotate(${(minutes + seconds / 60) * 6}deg) translateX(-50%)`;
-        clock.querySelector('.second').style.transform = `rotate(${seconds * 6}deg) translateX(-50%)`;
+        const hHand = clock.querySelector('.hour');
+        const mHand = clock.querySelector('.minute');
+        const sHand = clock.querySelector('.second');
+
+        hHand.style.transform = `rotate(${(hours % 12 + minutes / 60) * 30}deg) translateX(-50%)`;
+        mHand.style.transform = `rotate(${(minutes + seconds / 60) * 6}deg) translateX(-50%)`;
+        sHand.style.transform = `rotate(${seconds * 6}deg) translateX(-50%)`;
 
         const container = clock.parentElement;
         const indicator = container.querySelector('.am-pm-indicator');
         const isAM = local.getHours() < 12;
-        indicator.textContent = isAM ? 'am' : 'pm';
+        indicator.textContent = isAM ? 'AM' : 'PM';
         indicator.classList.toggle('night', !isAM);
       }
     }
@@ -434,21 +364,20 @@
     function updateCurrentTime() {
       const now = new Date();
       const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-      const abuDhabiTime = new Date(utc + 4 * 3600000);
+      const abuTime = new Date(utc + 4 * 3600000);
 
       const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-      const day = days[abuDhabiTime.getDay()];
-      const date = abuDhabiTime.getDate().toString().padStart(2, '0');
-      const month = months[abuDhabiTime.getMonth()];
-      const year = abuDhabiTime.getFullYear();
-      const hour = abuDhabiTime.getHours().toString().padStart(2, '0');
-      const minute = abuDhabiTime.getMinutes().toString().padStart(2, '0');
-      const second = abuDhabiTime.getSeconds().toString().padStart(2, '0');
+      const dayName = days[abuTime.getDay()];
+      const date = abuTime.getDate().toString().padStart(2, '0');
+      const month = months[abuTime.getMonth()];
+      const year = abuTime.getFullYear();
+      const hour = abuTime.getHours().toString().padStart(2, '0');
+      const minute = abuTime.getMinutes().toString().padStart(2, '0');
+      const second = abuTime.getSeconds().toString().padStart(2, '0');
 
-      document.getElementById('weekday-display').innerText = `${day}, ${date} ${month} ${year}`;
+      document.getElementById('weekday-display').innerText = `${dayName}, ${date} ${month} ${year}`;
       document.getElementById('current-time').innerText = `${hour}:${minute}:${second}`;
     }
 
@@ -466,8 +395,7 @@
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
-      document.getElementById('countdown').innerText =
-        `${days} Days ${hours} Hr ${minutes} Min ${seconds} Sec`;
+      document.getElementById('countdown').innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }
 
     function updateAll() {
@@ -476,8 +404,10 @@
       updateCountdown();
     }
 
-    updateAll();
-    setInterval(updateAll, 1000);
+    window.onload = () => {
+      updateAll();
+      setInterval(updateAll, 1000);
+    };
   </script>
 </body>
 </html>
