@@ -291,7 +291,13 @@
         --clock-size: 120px;
       }
     }
-  </style>
+  
+.info-table{margin-top:15px;}
+.info-row{display:flex;align-items:flex-start;margin-bottom:18px;}
+.label{width:330px;flex-shrink:0;font-size:20px;line-height:1.5;}
+.value{flex:1;font-size:20px;line-height:1.5;word-break:break-word;}
+
+</style>
 </head>
 <body>
   <div class="container">
@@ -304,7 +310,7 @@
       <div id="weekday-display"></div>
       <div id="current-time"></div>
       <div class="countdown-label">
-        Quote of the Month: “Leaders don't wait for challenges — they anticipate them and shape the outcome.”
+        Quote of the Month: “Strong teams deliver safe projects.”
       </div>
     </div>
 
@@ -325,18 +331,11 @@
           frameborder="0" allowfullscreen></iframe>
       </div>
 
-      <div class="status-row">
-        <div class="status-left">
-          <div class="countdown-label">Overall Milestone Achieved: </div>
-          <div class="countdown-label">Current Milestone:</div>
-          <div class="countdown-label">Golden Safety Rule of the Month:<br><br></div>
-        </div>
-        <div class="status-right">
-          <div class="countdown-label">10/30 <a href="Countdownl.html">.</a></div>
-          <div class="countdown-label">60% Model Review</div>
-          <div class="countdown-label">Powered Systems: (Rule 7)<br>"I check the isolation and absence of absence of energy and fluids before any intervention."<br></div>
-        </div>
-      </div>
+<div class="info-table">
+<div class="info-row"><div class="label">Overall Milestone Achieved:</div><div class="value">10/30 <a href="Countdownl.html">.</a></div></div>
+<div class="info-row"><div class="label">Current Milestone:</div><div class="value">60% Model Review</div></div>
+<div class="info-row"><div class="label">Golden Safety Rule of the Month:</div><div class="value">Powered Systems (Rule 7)<br>"I check the isolation and absence of energy and fluids before any intervention."</div></div>
+</div>
 
 
     </div>
