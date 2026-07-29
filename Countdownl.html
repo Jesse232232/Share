@@ -165,7 +165,8 @@
       position: relative;
       width: var(--clock-size);
       height: var(--clock-size);
-      border: 8px solid #333;
+      box-sizing: border-box;
+      border: 5px solid #333;
       border-radius: 50%;
       background: white;
       overflow: hidden;
@@ -181,18 +182,19 @@
       position: absolute;
       bottom: 50%;
       left: 50%;
-      transform-origin: bottom center;
+      transform-origin: 50% 100%;
       background: #333;
+      border-radius: 1px;
     }
 
-    .hour { width: 6px; height: calc(var(--clock-size) * 0.34); z-index: 3; }
-    .minute { width: 4px; height: calc(var(--clock-size) * 0.46); z-index: 2; }
-    .second { width: 2.5px; height: calc(var(--clock-size) * 0.56); background: red; z-index: 1; }
+    .hour { width: 5px; height: 32%; z-index: 3; }
+    .minute { width: 3.5px; height: 42%; z-index: 2; }
+    .second { width: 2px; height: 48%; background: red; z-index: 1; }
 
     .center-dot {
       position: absolute;
-      width: 11px;
-      height: 11px;
+      width: 12%;
+      height: 12%;
       background: #333;
       border-radius: 50%;
       top: 50%;
@@ -203,20 +205,17 @@
 
     .tick {
       position: absolute;
-      width: 4px;
-      height: calc(var(--clock-size) * 0.07);
       background: #333;
-      top: calc(var(--clock-size) * 0.03);
-      left: 50%;
-      transform-origin: center calc(var(--clock-size) / 2 - 4px);
+      border-radius: 1px;
     }
 
     .number {
       position: absolute;
-      font-size: calc(var(--clock-size) * 0.085);
       font-weight: bold;
       color: #333;
       transform: translate(-50%, -50%);
+      line-height: 1;
+      user-select: none;
     }
   </style>
 </head>
@@ -287,21 +286,35 @@
 
     function createTicks(clockId) {
       const clock = document.getElementById(clockId);
-      const size = clock.offsetWidth;
+      // Use clientWidth so we work inside the border (box-sizing: border-box)
+      const size = clock.clientWidth;
       const center = size / 2;
-      const radius = center - size * 0.13;
+      const tickLen = size * 0.07;
+      const tickWidth = Math.max(2, size * 0.025);
+      const numberRadius = center - size * 0.16; // keep numbers clear of ticks & border
+      const fontSize = size * 0.095;
 
       for (let i = 0; i < 12; i++) {
+        const angleDeg = i * 30;
+
+        // Tick marks – sit near the rim and rotate around clock center
         const tick = document.createElement("div");
         tick.className = "tick";
-        tick.style.transform = `rotate(${i * 30}deg) translateX(-50%)`;
+        tick.style.width = `${tickWidth}px`;
+        tick.style.height = `${tickLen}px`;
+        tick.style.left = "50%";
+        tick.style.top = `${size * 0.03}px`;
+        tick.style.transformOrigin = `center ${center - size * 0.03}px`;
+        tick.style.transform = `translateX(-50%) rotate(${angleDeg}deg)`;
         clock.appendChild(tick);
 
+        // Hour numbers – calculated from true center
         const number = document.createElement("div");
         number.className = "number";
-        const angle = (i * 30 - 90) * Math.PI / 180;
-        const x = center + radius * Math.cos(angle);
-        const y = center + radius * Math.sin(angle);
+        number.style.fontSize = `${fontSize}px`;
+        const angleRad = (angleDeg - 90) * Math.PI / 180;
+        const x = center + numberRadius * Math.cos(angleRad);
+        const y = center + numberRadius * Math.sin(angleRad);
         number.style.left = `${x}px`;
         number.style.top = `${y}px`;
         number.textContent = i === 0 ? 12 : i;
@@ -332,9 +345,12 @@
         const seconds = local.getSeconds();
 
         const clock = document.getElementById(id);
-        clock.querySelector('.hour').style.transform = `rotate(${(hours + minutes / 60) * 30}deg) translateX(-50%)`;
-        clock.querySelector('.minute').style.transform = `rotate(${(minutes + seconds / 60) * 6}deg) translateX(-50%)`;
-        clock.querySelector('.second').style.transform = `rotate(${seconds * 6}deg) translateX(-50%)`;
+        clock.querySelector('.hour').style.transform =
+          `translateX(-50%) rotate(${(hours % 12 + minutes / 60) * 30}deg)`;
+        clock.querySelector('.minute').style.transform =
+          `translateX(-50%) rotate(${(minutes + seconds / 60) * 6}deg)`;
+        clock.querySelector('.second').style.transform =
+          `translateX(-50%) rotate(${seconds * 6}deg)`;
 
         const container = clock.parentElement;
         const indicator = container.querySelector('.am-pm-indicator');
